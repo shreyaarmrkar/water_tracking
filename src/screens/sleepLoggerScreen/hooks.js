@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Flex, Input, Select,CheckIcon } from "native-base"
+import { Button, Flex, Input, Select,CheckIcon, Text, Center } from "native-base"
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 export const useSleepLogHook = () => {
@@ -47,11 +47,13 @@ export const useSleepLogHook = () => {
     }
 
     const showDatepicker = () =>
-        <Flex spac direction="row" mb="2.5" mt="2.5">
-            <Button size="sm" w="100%" variant="outline" onPress={() => showDatePicker()}>
-                set time
-            </Button>
-
+        <Flex spac direction="column" mb="2.5" mt="2.5">
+            <Center>
+                <Button size="sm" w="100%" variant="outline" onPress={() => showDatePicker()}>
+                    set time
+                </Button>
+                <Text mt="4">{time.toLocaleTimeString()}</Text>
+            </Center>
         </Flex>
 
     const onChangeDetails = (val, key) => {
@@ -133,6 +135,6 @@ export const useSleepLogHook = () => {
         getDetails,
         calculate,
         response,
-
+        time
     }
 }

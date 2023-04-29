@@ -30,13 +30,17 @@ const BottomTabNavigator = () => {
   return (
     <BottomTab.Navigator
       initialRouteName="home"
+      screenOptions = {{
+        tabBarStyle: { backgroundColor: '#e4f0f8', },
+          headerStyle: {backgroundColor: "#e4f0f8"},
+      }}
     >
       <BottomTab.Screen
         name="home"
         component={Home}
         options={({ navigation }) => ({
-          title: "Stay Lealthy",
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" />,
+          title: "Stay Healthy",
+          tabBarIcon: ({ color }) => <TabBarIcon name="home"  />,
         })}
       />
       <BottomTab.Screen

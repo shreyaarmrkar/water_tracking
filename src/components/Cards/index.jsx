@@ -1,18 +1,17 @@
 
 import React from "react";
 import { Box, Heading, AspectRatio, Image, Text, Center, HStack, Stack, NativeBaseProvider } from "native-base";
+import {ImageBackground} from "react-native";
 
-const Card = ({img=false, Headings=false, subHeading=false, hStack=false, ItemContent}) => {
+const Card = ({img=false, my=4,key="tes", Headings=false, subHeading=false, hStack=false, ItemContent}) => {
     return (
-    <Box alignItems="center" mx="1">
-      <Box  my="4" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
-      borderColor: "coolGray.600",
-      backgroundColor: "gray.700"
+    <Box alignItems="center" mx="1" key={key}>
+      <Box  my={my} rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
     }} _web={{
       shadow: 2,
       borderWidth: 0
     }} _light={{
-      backgroundColor: "gray.50"
+      backgroundColor: "#e4f0f8"
     }}>
         {img && <Box>
           <AspectRatio w="100%" ratio={16 / 9}>

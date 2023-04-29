@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import {firestoreDB} from "../../../firebaseConfig";
-import { addDoc,collection, updateDoc,doc } from "firebase/firestore";
+import {updateDoc,doc } from "firebase/firestore";
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -42,28 +42,14 @@ Notifications.setNotificationHandler({
    }
   
   const sheduleNotification = async (expoPushToken, dailyWaterIntake) => {
-    const notification = {
-        to: expoPushToken,
-        sound: 'default',
-        title: 'Test title',
-        body: 'Test body',
-        priority: 'high',
-        channelId: 'default',
-        badge: 1,
-        data:  `time to drink ${Math.round(dailyWaterIntake/3)}L water`,
-      };
-      const res = await fetch('https://exp.host/--/api/v2/push/send', {
-            method: 'POST',
-            headers: {
-            'host': "exp.host",
-            'accept': "application/json",
-            'accept-encoding': "gzip,deflate",
-            'content-type': "application/json",
-            'expo-push-token': expoPushToken,
-            },
-            body: JSON.stringify(notification),
-        })
-        console.log("g",res)
+    await Notifications.scheduleNotificationAsync({
+      content: {
+          to: expoPushToken,
+          title: "title",
+          body: `time to drink water`,
+      },
+      trigger: { seconds: 2 }
+  });
 }
 
 export const useReminderHooks = () => {
@@ -74,7 +60,7 @@ export const useReminderHooks = () => {
     const [isChecked, setIsChecked] = useState(false)
     const notificationListener = useRef();
     const responseListener = useRef();
-    let dailyWaterIntake;
+    let dailyWaterIntake = 0;
     let act = 6
     const setFieldsInput = (v) => {
         setformData(prevCount => {

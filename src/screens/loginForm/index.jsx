@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, Text, Heading, VStack, FormControl, Input, Link, Button,Icon, HStack, Center, Pressable } from "native-base";
+import { Box, Text, Heading, VStack, FormControl,Spinner, Input, Link, Button,Icon, HStack, Center, Pressable } from "native-base";
 import {useFormHooks} from "./hooks";
 import { MaterialIcons } from "@expo/vector-icons";
 import {Image} from "react-native"
 
 const LoginForm = ({navigation}) => {
-  const { setFieldsInput, formData, setShowPassword,showPassword } = useFormHooks();
+  const { setFieldsInput, formData,status,showSpin, setShowPassword,showPassword, submitLogin } = useFormHooks(navigation);
   return (
     <Center flex={1} px="3" w="100%">
       <Box safeArea p="2" py="8" w="90%" maxW="290">
@@ -44,26 +44,28 @@ const LoginForm = ({navigation}) => {
               Forget Password?
             </Link>
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={() => navigation.navigate('root')}>
-            Sign in
-          </Button>
           <HStack mt="6" justifyContent="center">
             <Text fontSize="sm" color="coolGray.600" _dark={{
               color: "warmGray.200"
             }}>
               I'm a new user.{" "}
             </Text>
-            <Link 
+            <Link
             onPress={() => navigation.navigate('signup')}
             _text={{
               color: "indigo.500",
               fontWeight: "medium",
               fontSize: "sm"
-            }} href="#">
+            }}>
               Sign Up
             </Link>
           </HStack>
         </VStack>
+        {showSpin && <Spinner accessibilityLabel="Loading" />}
+        <Text>{status}</Text>
+        <Button mt="2" colorScheme="indigo"  isDisabled={showSpin} onPress={submitLogin}>
+            Sign in
+          </Button>
       </Box>
     </Center>
   );

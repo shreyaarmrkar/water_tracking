@@ -2,8 +2,10 @@ import * as React from "react";
 import { Select, Box, CheckIcon, Center, Text, FormControl, WarningOutlineIcon, Button } from "native-base";
 import Card from "../../components/Cards";
 import { useSleepLogHook } from "./hooks"
+import { ImageBackground } from "react-native";
+import bg from '../../../assets/bg.jpg';
 const SleepLoggerScreen = () => {
-    const { mode, setSleepMode, response, dropoDwnOption, calculate, getDetails, showError, showDatepicker } = useSleepLogHook()
+    const { mode,time, setSleepMode, response, dropoDwnOption, calculate, getDetails, showError, showDatepicker } = useSleepLogHook()
 
     const getComponent = () => {
         switch (mode) {
@@ -15,7 +17,11 @@ const SleepLoggerScreen = () => {
         }
     }
 
-    return <Card
+    return <ImageBackground source={bg} style={{
+        flex: 1,
+        alignSelf: 'stretch',
+        width: null,
+    }}><Card
         ItemContent={() =>
             <Box flex={1} w={[72, 85]}>
                 <FormControl w="full" maxW="300" isRequired isInvalid={showError}>
@@ -43,6 +49,7 @@ const SleepLoggerScreen = () => {
             </Box>
         }
     />
+    </ImageBackground>
 };
 
 export default SleepLoggerScreen;
